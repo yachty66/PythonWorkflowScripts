@@ -4,11 +4,11 @@
 
 Blocks websites which distract focus. New domains can be added in `blockSites`.
 
-# Why
+## Why
 
 Getting not distracted. 
 
-# Dependencies
+## Dependencies
 
 On mac change permissions of `/etc/hosts` file to "Read & Write".
 
