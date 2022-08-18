@@ -3,6 +3,7 @@ import os
 
 url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
 
+
 def getFilename():
     r = requests.get(url)
     path = "/Users/maxhager/Projects2022/PythonWorkflowScripts/BackgroundImage/backgroundImage/"
@@ -31,4 +32,3 @@ if __name__ == '__main__':
     filename = getFilename()
     cmd = "osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file \"" + filename + "\"'"
     os.system(cmd)
-    
