@@ -1,11 +1,11 @@
 import os
+import shutil
 
 
 def deleteDownloads():
     dir = "/Users/maxhager/Downloads"
-    filelist = [f for f in os.listdir(dir)]
-    for f in filelist:  
-        os.remove(os.path.join(dir, f))
+    shutil.rmtree(dir, ignore_errors=True)
+    print("Deleted '%s' directory successfully" % dir)
 
 
 if __name__ == "__main__":
