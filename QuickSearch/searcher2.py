@@ -1,3 +1,4 @@
+from ast import Name
 from itertools import count
 from tkinter import *
 import os
@@ -23,35 +24,39 @@ def update(data):
     # Add toppings to listbox
     for item in data:
         myList.insert(END, item)
+    myList.select_set(0)
+
 
 # returns list of files/dirs names that match the input string (updates on every key event in search bar)
 
 
+def displayer(typed):
+    lWithFiles = list()
 
-def displayer(typed):  
-    lWithFiles = []
-    counter = 0
-    for path, currentDirectory, files in os.walk("/Users/maxhager/Projects2022"):
-        if counter == 2:
-                break
-        for dir in currentDirectory:
-            counter += 1
-            print(dir)
-            if dir.startswith(typed):
-                lWithFiles.append(os.path.join(path, dir))
-            if counter == 2:
-                break
-    print(str(counter)+"----------------------------------------------------------------------------------------------------------------")
+    depth = 2
+
+    # [1] abspath() already acts as normpath() to remove trailing os.sep
+    # , and we need ensures trailing os.sep not exists to make slicing accurate.
+    # [2] abspath() also make /../ and ////, "." get resolved even though os.walk can returns it literally.
+    # [3] expanduser() expands ~
+    # [4] expandvars() expands $HOME
+    # WARN: Don't use [3] expanduser and [4] expandvars if stuff contains arbitrary string out of your control.
+    # stuff = os.path.expanduser(os.path.expandvars(stuff)) # if trusted source
+    stuff = os.path.abspath('/Users/maxhager/Projects2022')
+
+    for root, dirs, files in os.walk(stuff):
+        if root[len(stuff):].count(os.sep) < depth:
+            for dir in dirs:
+                if dir.startswith(typed):
+                    lWithFiles.append(os.path.join(root, dir))
     return lWithFiles
-
-# gets input from search field
 
 
 def input(e):
     typed = myEntry.get()
     lWithPaths = displayer(typed)
-    print(lWithPaths)
     update(lWithPaths)
+
 
 # Create a binding on the entry box
 myEntry.bind("<KeyRelease>", input)
