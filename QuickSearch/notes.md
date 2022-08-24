@@ -18,12 +18,19 @@
                     - How to traverse with os.walk only to a limit
 
     - Problem get only Grocery and workflow displayed
-8. Set binding to first element or element which was clickd once. After every new keyboard event set binding to first element.
+8. Set binding to first element or element which was clickd once. After every new keyboard event set binding to first element. - 
     - set an selector on item in listbox python gui
         - self.listbox.select_set(0)
     - select item in listbox python gui
     - set binding on first element in listbox python gui
 9. As long app is in focus every keyboard action goes inside search / make ability to type in search bar fixed
+    - fix input cursor in search bar python gui
+    - bind constantly to write in search bar python gui
+    - static cursor python gui
+    - multiple focus python gui
+    - setting static focus python gui
+    - its actually not so important - whats more important is that I can do straigh arrow up and down 
+        - How to have focus on entry and listbox
 10. If elements in listbox up and down key is possible
 11. On double click or enter on current binded element print path from element
 12. Open path with vsc 
