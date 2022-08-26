@@ -3,6 +3,16 @@ from itertools import count
 from tkinter import *
 import os
 
+"""
+1. Directly on some popup in listbox provide ability to move up and down with keyboard 
+    - move up and down with arrow in listbox
+    - set focus to field in listbox
+    - enable up and down arrow key for listbox
+2. Either I try to reimplement the stack over or ask 
+    - try to implement the stack overlflow 
+    - if above doesnt work create question on stackoverlflow 
+"""
+
 root = Tk()
 root.title('Searcher')
 root.geometry("500x300")
@@ -15,21 +25,19 @@ myList = Listbox(root, width=50)
 myList.pack(pady=40)
 
 # Update the listbox
-
-
 def update(data):
     # Clear the listbox
     myList.delete(0, END)
-
     # Add toppings to listbox
     for item in data:
         myList.insert(END, item)
     myList.select_set(0)
+    myList.bind("<Down>", OnEntryDown)
+    myList.bind("<Up>", OnEntryUp)
+    #myList.bind("<Down>", onEntryDown())
 
 
 # returns list of files/dirs names that match the input string (updates on every key event in search bar)
-
-
 def displayer(typed):
     lWithFiles = list()
 
@@ -51,12 +59,10 @@ def displayer(typed):
                     lWithFiles.append(os.path.join(root, dir))
     return lWithFiles
 
-
 def input(e):
     typed = myEntry.get()
     lWithPaths = displayer(typed)
     update(lWithPaths)
-
 
 # Create a binding on the entry box
 myEntry.bind("<KeyRelease>", input)

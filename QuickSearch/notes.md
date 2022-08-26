@@ -31,6 +31,7 @@
     - setting static focus python gui
     - its actually not so important - whats more important is that I can do straigh arrow up and down 
         - How to have focus on entry and listbox
+            - 
 10. If elements in listbox up and down key is possible
 11. On double click or enter on current binded element print path from element
 12. Open path with vsc 

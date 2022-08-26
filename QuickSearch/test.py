@@ -5,39 +5,29 @@ root.title('Codemy.com - Auto Select/Search')
 root.iconbitmap('c:/gui/codemy.ico')
 root.geometry("500x300")
 
-# Update the listbox
-def update(data):
-	# Clear the listbox
-	my_list.delete(0, END)
+def body(self, master):        
+    self.e1 = tk.Listbox(master, selectmode=tk.SINGLE, height = 3, exportselection=0)
+    self.e1.insert(tk.END, "1")
+    self.e1.insert(tk.END, "2")
 
-	# Add toppings to listbox
-	for item in data:
-		my_list.insert(END, item)
+    self.e1.grid(row=0, column=1)
+    self.selection = 0
+    self.e1.select_set(self.selection)
 
-# Update entry box with listbox clicked
-def fillout(e):
-	# Delete whatever is in the entry box
-	my_entry.delete(0, END)
+    self.e1.bind("<Down>", self.OnEntryDown)
+    self.e1.bind("<Up>", self.OnEntryUp)
 
-	# Add clicked list item to entry box
-	my_entry.insert(0, my_list.get(ANCHOR))
+def OnEntryDown(self, event):
+    if self.selection < self.e1.size()-1:
+        self.e1.select_clear(self.selection)
+        self.selection += 1
+        self.e1.select_set(self.selection)
 
-# Create function to check entry vs listbox
-def check(e):
-	# grab what was typed
-	typed = my_entry.get()
-
-	if typed == '':
-		data = toppings
-	else:
-		data = []
-		for item in toppings:
-			if typed.lower() in item.lower():
-				data.append(item)
-
-	# update our listbox with selected items
-	update(data)				
-
+def OnEntryUp(self, event):
+    if self.selection > 0:
+        self.e1.select_clear(self.selection)
+        self.selection -= 1
+        self.e1.select_set(self.selection)
 # Create a label
 my_label = Label(root, text="Search",
 	font=("Helvetica", 14), fg="grey")
