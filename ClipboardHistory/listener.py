@@ -1,5 +1,9 @@
 import pyperclip
 
+def test():
+    with open('clipboardHistory.txt', 'a') as f:
+        f.write("hdshhd")
+        f.write("\nNAECHST\n")
 
 def saveCurrentItem():
     with open(r"clipboardHistory.txt", 'r') as f:
@@ -13,38 +17,33 @@ def saveCurrentItem():
 
     current = pyperclip.paste()
     with open('clipboardHistory.txt', 'a') as f:
-        f.write(current + '\n')
-
-#execution and testing
-# script needs to run all the time and if something was saved to CB than based on that execution
-#
-
+        f.write(current)
+        f.write("\nNAECHSTE")
 
 def keyBoardListener():
-    # last line from file
     with open('clipboardHistory.txt', 'r') as f:
         data = f.readlines()
     if len(data) == 0:
         pastContent = " "
     else:
         pastContent = data[-1]
-    #todo check that \n does not make a difference here 
+    # todo check that \n does not make a difference here
     currentContent = pyperclip.paste()
-    if currentContent != pastContent:
+    if currentContent.split() != pastContent.split():
+        print("should not appear more than once")
         pastContent = currentContent
         return True
     return False
 
-
 if __name__ == "__main__":
-    '''
-    I need my event listener and if an event happens exe other methods
-    I call this py script. this is why I need
-    
-    1. check if last item saved to file is different to current item --> if yes than write current to txt file 
-    this adds new item to txt file if new item was added to history
-    '''
-    while True:
+    #test()
+    #what is the problem here now? 
+    #i need to check if the input from clibboard is the same or not from last line of txt file 
+    #i could try to put everything into one file. 
+    with open('clipboardHistory.txt', 'r') as f:
+        data = f.readlines()
+    print([data[4]])
+    '''while True:
         trigger = keyBoardListener()
         if trigger:
-            saveCurrentItem()
+            saveCurrentItem()'''

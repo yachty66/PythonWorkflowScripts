@@ -1,6 +1,5 @@
 import pyperclip
 
-
 def displayClipboardHistory():
     printString = ""
     with open('clipboardHistory.txt', 'r') as f:
@@ -15,7 +14,6 @@ def displayClipboardHistory():
         printString = printString + \
             str(i+1) + " " + data[i][0:20] + dots + lineBreak + "\n"
     return printString
-
 
 def respondToInput():
 
@@ -40,7 +38,6 @@ def respondToInput():
             dots = ""
         print(content[0:20] + "{dots}".format(dots="..." if dots ==
               "..." else "") + " was copied to clipboard.")
-
 
 if __name__ == "__main__":
     print(displayClipboardHistory())
