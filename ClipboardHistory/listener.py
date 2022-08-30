@@ -1,11 +1,16 @@
 import pyperclip
+from hashlib import sha256
+
+sha = sha256("s".encode('utf-8')).hexdigest()
+
 
 def test():
-    with open('clipboardHistory.txt', 'a') as f:
-        f.write("hdshhd")
-        f.write("\nNAECHST\n")
+    with open('clipboardHistory.txt', 'r') as f:
+        data = f.readlines()
+    print(len(data))
 
-def saveCurrentItem():
+
+def saveCurrentItem(current):
     with open(r"clipboardHistory.txt", 'r') as f:
         lines = len(f.readlines())
 
@@ -15,35 +20,27 @@ def saveCurrentItem():
         with open('clipboardHistory.txt', 'w') as fout:
             fout.writelines(data[1:])
 
-    current = pyperclip.paste()
     with open('clipboardHistory.txt', 'a') as f:
-        f.write(current)
-        f.write("\nNAECHSTE")
+        print(current)
+        f.write(sha + "\n" + str(current) + "\n" + sha + "\n")
 
-def keyBoardListener():
-    with open('clipboardHistory.txt', 'r') as f:
-        data = f.readlines()
-    if len(data) == 0:
-        pastContent = " "
-    else:
-        pastContent = data[-1]
-    # todo check that \n does not make a difference here
-    currentContent = pyperclip.paste()
-    if currentContent.split() != pastContent.split():
-        print("should not appear more than once")
-        pastContent = currentContent
-        return True
-    return False
+globalVarOne = 1
+globalVarTwo = 2
 
 if __name__ == "__main__":
-    #test()
-    #what is the problem here now? 
-    #i need to check if the input from clibboard is the same or not from last line of txt file 
-    #i could try to put everything into one file. 
-    with open('clipboardHistory.txt', 'r') as f:
-        data = f.readlines()
-    print([data[4]])
-    '''while True:
-        trigger = keyBoardListener()
-        if trigger:
-            saveCurrentItem()'''
+
+    # i could use dollar signs or unique hashes to mark beginning and end of line
+    # i can just generate one 256hash which i than use all the time
+    # add hash, add content, add hash...2
+    # extract content between hashes and
+    #i search for something where i can save my CBH to. txt file is suboptimal because i can only read lines from it 
+    #better would be a var which i pass 
+    #i could define variables for every number and than access them from the other script. that works. 
+    pastContent = ""
+    while True:
+        currentContent = pyperclip.paste()
+        if currentContent != pastContent:
+
+            saveCurrentItem(currentContent)
+            pastContent = currentContent
+            # i save
