@@ -1,15 +1,21 @@
 import pyperclip
 from hashlib import sha256
-import time
+from curses import keyname
 import pickle
+from pynput import keyboard
+'''
+its not sha, not write to file, not pyperclip.paste()
+'''
 
 sha = sha256("s".encode('utf-8')).hexdigest()
-
 clipBoard = []
+pastContent = ""
+
 
 def writeToFile(current):
-    with open("clipboardHistory.txt", "wb") as outfile:
+    with open("/Users/maxhager/Projects2022/PythonWorkflowScripts/ClipboardHistory/clipboardHistory.txt", "wb") as outfile:
         pickle.dump(current, outfile)
+
 
 def saveCurrentItem(current):
     bool = True
@@ -24,20 +30,19 @@ def saveCurrentItem(current):
         clipBoard = clipBoard[1:]
         clipBoard.append(current)
         writeToFile(clipBoard)
-        # is added at right place second and at end
-        # gets filled up from back to front but needs to be filled up from forth to back
-        #kann nix von rennenden python script abfragen 
-        #was gibt es denn noch so für input output formate für python?
+
+
+def on_press(key):
+    global pastContent
+    currentContent = pyperclip.paste()
+    if currentContent != pastContent:
+        if currentContent != None:
+            saveCurrentItem(currentContent)
+        pastContent = currentContent
 
 
 if __name__ == "__main__":
     for i in range(10):
         clipBoard.append(sha)
-    pastContent = ""
-    while True:
-        currentContent = pyperclip.paste()  
-        if currentContent != pastContent:
-            if currentContent != None:
-                saveCurrentItem(currentContent)
-            pastContent = currentContent
-        #print(clipBoard)
+    with keyboard.Listener(on_press=on_press) as listener:
+        listener.join()

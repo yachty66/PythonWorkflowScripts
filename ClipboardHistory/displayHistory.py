@@ -3,22 +3,24 @@ import pickle
 
 
 def displayClipboardHistory(reconstructed):
+    #if 
     printString = ""
     for i in range(len(reconstructed)):
         if len(reconstructed[i]) > 20:
             dots = "..."
-            lineBreak = "\n"
         else:
             dots = ""
-            lineBreak = ""
         printString = printString + \
-            str(i+1) + " " + reconstructed[i][0:20] + dots + lineBreak + "\n"
+            str(i+1) + " " + reconstructed[i][0:10] + dots + "\n"
     return printString
 
 
 def respondToInput(reconstructed):
-
-    inp = int(input())
+    try:
+        inp = int(input())
+    except ValueError:
+        print("Wrong input")
+        exit()
     l = []
 
     for i in range(len(reconstructed)):
