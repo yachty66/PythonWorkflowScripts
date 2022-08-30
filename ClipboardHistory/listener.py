@@ -1,46 +1,43 @@
 import pyperclip
 from hashlib import sha256
+import time
+import pickle
 
 sha = sha256("s".encode('utf-8')).hexdigest()
 
+clipBoard = []
 
-def test():
-    with open('clipboardHistory.txt', 'r') as f:
-        data = f.readlines()
-    print(len(data))
-
+def writeToFile(current):
+    with open("clipboardHistory.txt", "wb") as outfile:
+        pickle.dump(current, outfile)
 
 def saveCurrentItem(current):
-    with open(r"clipboardHistory.txt", 'r') as f:
-        lines = len(f.readlines())
+    bool = True
+    global clipBoard
+    for i in range(len(clipBoard)):
+        if clipBoard[i] == sha:
+            clipBoard[i] = current
+            bool = False
+            writeToFile(clipBoard)
+            break
+    if bool:
+        clipBoard = clipBoard[1:]
+        clipBoard.append(current)
+        writeToFile(clipBoard)
+        # is added at right place second and at end
+        # gets filled up from back to front but needs to be filled up from forth to back
+        #kann nix von rennenden python script abfragen 
+        #was gibt es denn noch so für input output formate für python?
 
-    if lines == 10:
-        with open('clipboardHistory.txt', 'r') as fin:
-            data = fin.read().splitlines(True)
-        with open('clipboardHistory.txt', 'w') as fout:
-            fout.writelines(data[1:])
-
-    with open('clipboardHistory.txt', 'a') as f:
-        print(current)
-        f.write(sha + "\n" + str(current) + "\n" + sha + "\n")
-
-globalVarOne = 1
-globalVarTwo = 2
 
 if __name__ == "__main__":
-
-    # i could use dollar signs or unique hashes to mark beginning and end of line
-    # i can just generate one 256hash which i than use all the time
-    # add hash, add content, add hash...2
-    # extract content between hashes and
-    #i search for something where i can save my CBH to. txt file is suboptimal because i can only read lines from it 
-    #better would be a var which i pass 
-    #i could define variables for every number and than access them from the other script. that works. 
+    for i in range(10):
+        clipBoard.append(sha)
     pastContent = ""
     while True:
-        currentContent = pyperclip.paste()
+        currentContent = pyperclip.paste()  
         if currentContent != pastContent:
-
-            saveCurrentItem(currentContent)
+            if currentContent != None:
+                saveCurrentItem(currentContent)
             pastContent = currentContent
-            # i save
+        #print(clipBoard)

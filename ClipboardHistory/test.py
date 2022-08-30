@@ -1,4 +1,3 @@
-myvar = "world"
-
-if __name__ == "__main__":
-    print("hallo")
+s = None
+if s == None:
+    print("ha")
