@@ -9,3 +9,8 @@ Saves last 10 actions copied from clipboard.
 Workflow productivity.
 
 ## Dependencies 
+
+`pyperclip`
+`hashlib`
+`pickle`
+`pynput`

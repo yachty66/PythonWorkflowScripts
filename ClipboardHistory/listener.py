@@ -3,9 +3,6 @@ from hashlib import sha256
 from curses import keyname
 import pickle
 from pynput import keyboard
-'''
-its not sha, not write to file, not pyperclip.paste()
-'''
 
 sha = sha256("s".encode('utf-8')).hexdigest()
 clipBoard = []

@@ -3,7 +3,6 @@ import pickle
 
 
 def displayClipboardHistory(reconstructed):
-    #if 
     printString = ""
     for i in range(len(reconstructed)):
         if len(reconstructed[i]) > 20:
