@@ -1,6 +1,7 @@
 from distutils import config
 import feedparser
 from plyer import notification
+import config
 
 NewsFeed = feedparser.parse(config.feed)
 
@@ -15,7 +16,7 @@ def getCurrentTitle():
 
 
 def getLastTitle():
-    with open('~/Projects2022/PythonWorkflowScripts/UpworkJobAlerts/lastTitle.txt', 'r') as f:
+    with open('/Users/maxhager/Projects2022/PythonWorkflowScripts/UpworkJobAlerts/lastTitle.txt', 'r') as f:
         lastTitle = f.read()
         return lastTitle
 
@@ -31,19 +32,18 @@ def checkTitle():
 
 
 def writeToFile():
-    with open('~/Projects2022/PythonWorkflowScripts/UpworkJobAlerts/lastTitle.txt', 'w') as f:
+    with open('/Users/maxhager/Projects2022/PythonWorkflowScripts/UpworkJobAlerts/lastTitle.txt', 'w') as f:
         f.write(getCurrentTitle())
 
 
 def sendNotification():
-    with open('~/Projects2022/PythonWorkflowScripts/UpworkJobAlerts/lastTitle.txt', 'r') as f:
+    with open('/Users/maxhager/Projects2022/PythonWorkflowScripts/UpworkJobAlerts/lastTitle.txt', 'r') as f:
         title = f.read()
     notification.notify(title='Upwork Job Alert', message=title)
 
 
 # main which calls all functions
 if __name__ == "__main__":
-    sendNotification()
     if checkTitle():
         writeToFile()
         sendNotification()
