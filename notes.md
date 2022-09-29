@@ -10,9 +10,9 @@
 - ## Approach
     - ### 1. Writing down all the algorithms I wanna implement
         - taken from https://www.spiceworks.com/tech/artificial-intelligence/articles/top-ml-algorithms/
-        1. Linear regression 
-        2. Logistic regression
-        3. Decission trees 
+        1. Linear regression - 
+        2. Logistic regression - 
+        3. Decision trees 
         4. Support vector machines (SVMs)
         5. Naive Bayes algorithm
         6. KNN classification algorithm 
