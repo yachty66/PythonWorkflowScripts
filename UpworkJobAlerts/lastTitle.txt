@@ -1,1 +1,1 @@
-Full Stack Developer (Python/Django/React) - Upwork
+Python Parser + Telegram Bot Implementation - Upwork

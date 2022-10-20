@@ -1,5 +1,6 @@
-blockSites = ["www.linkedin.com", "linkedin.com",
-              "www.twitter.com", "twitter.com"]
+'''blockSites = ["www.linkedin.com", "linkedin.com",
+              "www.twitter.com", "twitter.com"]'''
+blockSites = ["www.linkedin.com", "linkedin.com"]
 
 
 def blockSite():
@@ -19,9 +20,11 @@ def freeSite():
 
 
 if __name__ == "__main__":
-    with open("/etc/hosts", "r") as f:
+    #I decided to constantly block linkedin and to disable the focus mode shortcut
+    pass
+    '''with open("/etc/hosts", "r") as f:
         lines = f.read().splitlines()
     if any(blockSites[0] in line for line in lines):
         freeSite()
     else:
-        blockSite()
+        blockSite()'''
