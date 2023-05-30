@@ -6,7 +6,7 @@ import subprocess
 current = []
 
 dictApplications = {"Music": "https://www.youtube.com/watch?v=Dx5qFachd3A", "Drive": "https://drive.google.com/drive/my-drive", "Gmail": "https://mail.google.com/mail/u/0/?tab=km#inbox",
-                    "Translate": "https://translate.google.com/", "DailyNotes": "/Users/maxhager/Projects2022/Notes/dailyNotes.md", "Calendar": "/Applications/AppicationsMe/Cron.app", "Todoist": "https://todoist.com/app/today", "MessageCenter":  ("https://mail.google.com/mail/u/0/?tab=km#inbox",  "https://app.slack.com/client/THHRTPPGV/D01A6CT53BM", "https://webmail.htw-berlin.de/currentNG/?_task=mail&_mbox=INBOX", "https://web.whatsapp.com/", "https://discord.com/channels/@me"), "Discord": "https://discord.com/channels/@me", "FocusMode": ['python3', '/Users/maxhager/Projects2022/PythonWorkflowScripts/FocusMode/focusMode.py']}
+                    "Translate": "https://translate.google.com/", "DailyNotes": "/Users/maxhager/Projects2022/Notes/dailyNotes.md", "Calendar": "/Applications/AppicationsMe/Cron.app", "Todoist": "https://todoist.com/app/today", "MessageCenter":  ("https://mail.google.com/mail/u/0/?tab=km#inbox",  "https://app.slack.com/client/THHRTPPGV/D01A6CT53BM", "https://webmail.htw-berlin.de/currentNG/?_task=mail&_mbox=INBOX", "https://web.whatsapp.com/", "https://discord.com/channels/@me"), "Discord": "https://discord.com/channels/@me", "FocusMode": ['python3', '/Users/maxhager/Projects2022/PythonWorkflowScripts/FocusMode/focusMode.py'], "GitHub": "https://github.com/yachty66"}
 
 dictOverviewSheet = {"Music": "Control + l", "Drive": "Control + 5", "Gmail": "Control + 5",
                      "Translate": "Control + t", "DailyNotes": "Control + n", "Calendar": "Control + 4", "Todoist": "Control + 9", "MessageCenter": "Control + 2", "Discord": "Control + 1", "FocusMode": "Control + f"}
@@ -18,6 +18,8 @@ def execute(param):
             subprocess.call(("open", i))
     elif param == "FocusMode":
         subprocess.call(dictApplications[param])
+    elif param == "DailyNotes":
+        subprocess.call(("open", "-a", "/Applications/Cursor.app", dictApplications[param]))
     else:
         subprocess.call(("open", dictApplications[param]))
 
@@ -44,6 +46,8 @@ def on_press(key):
         execute("Discord")
     elif keyboard.Key.ctrl in current and keyboard.KeyCode.from_char("f") in current and len(current) == 2:
         execute("FocusMode")
+    elif keyboard.Key.ctrl in current and keyboard.KeyCode.from_char("g") in current and len(current) == 2:
+        execute("GitHub")
 
 
 def on_release(key):
